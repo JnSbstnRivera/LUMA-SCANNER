@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Fondo -->
+  <circle cx="32" cy="32" r="32" fill="#0f172a"/>
+  <!-- Marco escaner -->
+  <rect x="10" y="10" width="44" height="44" rx="5" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <!-- Esquinas del scanner -->
+  <path d="M10,20 L10,10 L20,10" stroke="#00f0ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M44,10 L54,10 L54,20" stroke="#00f0ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M10,44 L10,54 L20,54" stroke="#00f0ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M44,54 L54,54 L54,44" stroke="#00f0ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Línea de escaneo -->
+  <line x1="12" y1="32" x2="52" y2="32" stroke="#00f0ff" stroke-width="2" opacity="0.8"/>
+  <!-- Rayo eléctrico (LUMA) -->
+  <polygon points="35,14 26,34 32,34 29,50 38,30 32,30" fill="#fde047"/>
+</svg>
