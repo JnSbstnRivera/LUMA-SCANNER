@@ -127,22 +127,43 @@ export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset 
       </div>
       
       {/* Battery Section */}
-      <div className="bg-gradient-to-br from-[#002E6E] to-[#004A99] rounded-xl shadow-sm p-4 text-white relative overflow-hidden group">
+      <div className="bg-gradient-to-br from-[#002E6E] to-[#004A99] rounded-xl shadow-sm p-4 text-white relative overflow-hidden">
         <div className="relative z-10">
-          <div className="flex justify-between items-start mb-2">
-            <h4 className="text-blue-200 text-[8px] font-black uppercase tracking-widest">Almacenamiento</h4>
-            <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/1200px-Tesla_Motors.svg.png" 
-              alt="Tesla" 
-              className="h-8 invert opacity-90 object-contain" 
+          <div className="flex justify-between items-start mb-3">
+            <h4 className="text-blue-200 text-[8px] font-black uppercase tracking-widest">Almacenamiento — Tesla Powerwall</h4>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/1200px-Tesla_Motors.svg.png"
+              alt="Tesla"
+              className="h-7 invert opacity-90 object-contain"
             />
           </div>
-          <div className="flex items-end space-x-2 mb-2">
-            <span className="text-4xl font-black">{recommendation.batteryRecommendationKwh.toFixed(1)}</span>
-            <span className="text-xs font-bold text-blue-200 pb-1 uppercase leading-none">kWh Batería</span>
+
+          <div className="flex items-end space-x-3 mb-3">
+            <span className="text-5xl font-black leading-none">{recommendation.powerwallCount}</span>
+            <div className="flex flex-col pb-1">
+              <span className="text-sm font-black text-white uppercase leading-none">
+                {recommendation.powerwallCount === 1 ? 'Powerwall' : 'Powerwalls'}
+              </span>
+              <span className="text-[10px] font-bold text-blue-200 uppercase leading-none mt-0.5">
+                {recommendation.batteryRecommendationKwh.toFixed(1)} kWh total
+              </span>
+            </div>
           </div>
+
+          {/* Visual battery units */}
+          <div className="flex gap-2 mb-3">
+            {Array.from({ length: recommendation.powerwallCount }).map((_, i) => (
+              <div key={i} className="flex flex-col items-center gap-1">
+                <div className="w-8 h-12 rounded border-2 border-white/40 bg-white/10 flex flex-col justify-end overflow-hidden">
+                  <div className="w-full bg-[#F89B24] transition-all" style={{ height: '75%' }} />
+                </div>
+                <span className="text-[7px] font-black text-blue-200 uppercase">13.5 kWh</span>
+              </div>
+            ))}
+          </div>
+
           <p className="text-blue-100 text-[10px] opacity-90 leading-tight">
-            Respaldo de <strong>Tesla Powerwall</strong> para uso nocturno y emergencias.
+            Cubre el <strong>consumo nocturno estimado</strong> y protege contra apagones del sistema eléctrico.
           </p>
         </div>
       </div>
