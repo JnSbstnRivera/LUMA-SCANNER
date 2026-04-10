@@ -51,8 +51,10 @@ const App: React.FC = () => {
     const finalSystemSizeKw = currentInstalledKw + (additionalPanelsNeeded * SOLAR_CONFIG.panelWattage / 1000);
     const estimatedMonthlyGen = finalSystemSizeKw * SOLAR_CONFIG.peakSunHours * SOLAR_CONFIG.systemEfficiency * 30;
     
-    // Recomendación de batería basada en el consumo diario total
-    const recommendedBattery = Math.max(10, Math.ceil(dailyKwhGoal * 0.75));
+    // Recomendación de batería: cubre ~50% del consumo diario (uso nocturno)
+    // Powerwall 2/3 = 13.5 kWh cada una — siempre mínimo 1 unidad
+    const powerwallCount = Math.max(1, Math.ceil((dailyKwhGoal * 0.5) / 13.5));
+    const recommendedBattery = powerwallCount * 13.5;
 
     return {
       totalPanelCountTarget: data.existingPanelCount + additionalPanelsNeeded,
@@ -60,7 +62,8 @@ const App: React.FC = () => {
       totalSystemSizeKw: finalSystemSizeKw,
       estimatedMonthlyGeneration: estimatedMonthlyGen,
       offsetPercentage: (estimatedMonthlyGen / (data.monthlyAverageKwh || 1)) * 100,
-      batteryRecommendationKwh: recommendedBattery
+      batteryRecommendationKwh: recommendedBattery,
+      powerwallCount: powerwallCount
     };
   };
 
