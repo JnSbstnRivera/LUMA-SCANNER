@@ -87,8 +87,14 @@ const App: React.FC = () => {
       setState(AppState.RESULTS);
     } catch (err: unknown) {
       console.error(err);
-      const errorMessage = err instanceof Error ? err.message : 'Error desconocido';
-      setError(`No pudimos procesar el archivo. ${errorMessage}`);
+      const code = err instanceof Error ? err.message : '';
+      if (code === 'UNREADABLE_IMAGE') {
+        setError('No pudimos leer el archivo. Asegúrate de subir una foto clara del historial de consumo o el PDF oficial de la app de LUMA.');
+      } else if (code === 'NO_DATA_FOUND') {
+        setError('Encontramos la factura pero no logramos extraer los datos de consumo. Intenta con el PDF oficial de LUMA para mejores resultados.');
+      } else {
+        setError('Ocurrió un error inesperado. Por favor intenta de nuevo.');
+      }
       setState(AppState.ERROR);
     }
   };
@@ -275,8 +281,11 @@ const App: React.FC = () => {
               </div>
 
               {state === AppState.ERROR && (
-                <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded-r-lg animate-bounce">
-                  <p className="text-sm text-red-700 font-medium">{error}</p>
+                <div className="bg-red-50 border border-red-200 rounded-xl p-3 mb-3 flex gap-2 items-start">
+                  <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <p className="text-xs text-red-700 font-medium leading-snug">{error}</p>
                 </div>
               )}
 
