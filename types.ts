@@ -25,6 +25,7 @@ export interface SolarSystemRecommendation {
   estimatedMonthlyGeneration: number;
   offsetPercentage: number;
   batteryRecommendationKwh: number;
+  powerwallCount: number;
 }
 
 export interface AnalysisResult {
