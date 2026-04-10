@@ -29,6 +29,17 @@ export const Scanner: React.FC<ScannerProps> = ({ onFileUploaded, isLoading }) =
 
   return (
     <div className="bg-white rounded-2xl shadow-sm p-8 text-center border-2 border-dashed border-slate-200 hover:border-[#F89B24] transition-all group cursor-pointer" onClick={triggerUpload}>
+
+      {/* Tip de calidad */}
+      <div className="mb-5 px-3 py-2 bg-blue-50 rounded-lg border border-blue-100 flex items-center gap-2 text-left" onClick={e => e.stopPropagation()}>
+        <svg className="w-3.5 h-3.5 text-[#002E6E] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+        </svg>
+        <p className="text-[9px] font-bold text-[#002E6E] leading-snug">
+          Para mejores resultados usa el <span className="text-[#F89B24]">PDF oficial de la app de LUMA</span>. Si usas foto, asegúrate de que el historial de barras sea legible y nítido.
+        </p>
+      </div>
+
       <div className="mb-6">
         <div className="bg-orange-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 shadow-sm">
           <svg className="w-10 h-10 text-[#F89B24]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
