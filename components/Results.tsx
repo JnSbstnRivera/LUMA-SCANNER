@@ -12,33 +12,34 @@ interface ResultsProps {
 export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset }) => {
   return (
     <div className="space-y-3 animate-fade-in pb-4">
-      <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-slate-100">
+      {/* Resumen de Análisis */}
+      <div className="bg-white dark:bg-[#161b22] rounded-xl shadow-sm overflow-hidden border border-slate-100 dark:border-white/[0.08]">
         <div className="bg-[#002E6E] px-4 py-2 flex justify-between items-center">
           <h3 className="text-white font-black text-sm uppercase tracking-tight">Resumen de Análisis</h3>
-          <button 
+          <button
             onClick={onReset}
             className="text-[9px] bg-white/10 hover:bg-white/20 px-2 py-1 rounded text-white transition-colors font-black uppercase"
           >
             Nueva Consulta
           </button>
         </div>
-        
+
         <div className="p-3 grid grid-cols-3 gap-2">
-          <div className="text-center border-r border-slate-100">
-            <p className="text-[8px] font-black text-slate-400 uppercase tracking-tighter mb-0.5">Consumo Promedio</p>
-            <p className="text-xl font-black text-slate-800">{data.monthlyAverageKwh} <span className="text-[10px] font-normal text-slate-400">kWh</span></p>
+          <div className="text-center border-r border-slate-100 dark:border-white/[0.06]">
+            <p className="text-[8px] font-black text-slate-400 dark:text-[#6b7280] uppercase tracking-tighter mb-0.5">Consumo Promedio</p>
+            <p className="text-xl font-black text-slate-800 dark:text-[#e8eaed]">{data.monthlyAverageKwh} <span className="text-[10px] font-normal text-slate-400 dark:text-[#6b7280]">kWh</span></p>
           </div>
-          <div className="text-center border-r border-slate-100">
-            <p className="text-[8px] font-black text-slate-400 uppercase tracking-tighter mb-0.5">Pico Histórico</p>
-            <p className="text-xl font-black text-slate-800">{data.highestMonthKwh} <span className="text-[10px] font-normal text-slate-400">kWh</span></p>
+          <div className="text-center border-r border-slate-100 dark:border-white/[0.06]">
+            <p className="text-[8px] font-black text-slate-400 dark:text-[#6b7280] uppercase tracking-tighter mb-0.5">Pico Histórico</p>
+            <p className="text-xl font-black text-slate-800 dark:text-[#e8eaed]">{data.highestMonthKwh} <span className="text-[10px] font-normal text-slate-400 dark:text-[#6b7280]">kWh</span></p>
           </div>
           <div className="text-center">
-            <p className="text-[8px] font-black text-slate-400 uppercase tracking-tighter mb-0.5">Estado Cliente</p>
-            <p className={`text-xs font-black uppercase ${data.isExistingCustomer ? 'text-blue-600' : 'text-green-600'}`}>
+            <p className="text-[8px] font-black text-slate-400 dark:text-[#6b7280] uppercase tracking-tighter mb-0.5">Estado Cliente</p>
+            <p className={`text-xs font-black uppercase ${data.isExistingCustomer ? 'text-blue-600 dark:text-blue-400' : 'text-green-600 dark:text-green-400'}`}>
               {data.isExistingCustomer ? 'Existente' : 'Nuevo'}
             </p>
             {data.isExistingCustomer && (
-              <p className="text-[8px] font-bold text-slate-400">({data.existingPanelCount} placas)</p>
+              <p className="text-[8px] font-bold text-slate-400 dark:text-[#6b7280]">({data.existingPanelCount} placas)</p>
             )}
           </div>
         </div>
@@ -46,49 +47,49 @@ export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {/* Main Result Card */}
-        <div className="bg-white rounded-xl shadow-sm p-4 border-t-4 border-[#F89B24]">
-          <h4 className="text-slate-500 text-[8px] font-black uppercase mb-3 tracking-[0.2em]">Dimensionamiento Sugerido</h4>
-          
+        <div className="bg-white dark:bg-[#161b22] rounded-xl shadow-sm p-4 border-t-4 border-[#F89B24] border border-slate-100 dark:border-white/[0.08]">
+          <h4 className="text-slate-500 dark:text-[#6b7280] text-[8px] font-black uppercase mb-3 tracking-[0.2em]">Dimensionamiento Sugerido</h4>
+
           <div className="mb-4">
             <div className="flex items-end space-x-2">
-              <span className="text-5xl font-black text-[#002E6E] leading-none">
+              <span className="text-5xl font-black text-[#002E6E] dark:text-blue-400 leading-none">
                 {data.isExistingCustomer ? recommendation.additionalPanelsNeeded : recommendation.totalPanelCountTarget}
               </span>
               <div className="flex flex-col mb-0.5">
-                <span className="text-xs font-black text-slate-400 uppercase leading-none">Placas</span>
+                <span className="text-xs font-black text-slate-400 dark:text-[#6b7280] uppercase leading-none">Placas</span>
                 <span className="text-[10px] font-bold text-[#F89B24] uppercase leading-none mt-0.5">
                   {data.isExistingCustomer ? 'Adicionales' : 'Totales'}
                 </span>
               </div>
             </div>
             {data.isExistingCustomer && (
-              <div className="mt-2 p-1.5 bg-blue-50 rounded border border-blue-100">
-                <p className="text-[9px] text-[#002E6E] font-medium text-center">
+              <div className="mt-2 p-1.5 bg-blue-50 dark:bg-blue-900/10 rounded border border-blue-100 dark:border-blue-900/20">
+                <p className="text-[9px] text-[#002E6E] dark:text-blue-300 font-medium text-center">
                   Total final: <strong>{recommendation.totalPanelCountTarget}</strong> placas.
                 </p>
               </div>
             )}
           </div>
-          
+
           <div className="space-y-2">
-            <div className="flex justify-between items-center py-1.5 border-b border-slate-50">
-              <span className="text-[10px] text-slate-500 font-medium">Módulo</span>
-              <div className="flex items-center space-x-1.5 bg-blue-50 px-2 py-1 rounded">
-                <span className="text-[10px] font-black text-blue-900 tracking-tighter">Q.PEAK DUO {SOLAR_CONFIG.panelWattage}W</span>
+            <div className="flex justify-between items-center py-1.5 border-b border-slate-50 dark:border-white/[0.06]">
+              <span className="text-[10px] text-slate-500 dark:text-[#a0a4ad] font-medium">Módulo</span>
+              <div className="flex items-center space-x-1.5 bg-blue-50 dark:bg-blue-900/10 px-2 py-1 rounded">
+                <span className="text-[10px] font-black text-blue-900 dark:text-blue-300 tracking-tighter">Q.PEAK DUO {SOLAR_CONFIG.panelWattage}W</span>
               </div>
             </div>
-            <div className="flex justify-between items-center py-1.5 border-b border-slate-50">
-              <span className="text-[10px] text-slate-500 font-medium">Capacidad</span>
-              <span className="text-[10px] font-bold text-slate-800">{recommendation.totalSystemSizeKw.toFixed(2)} kW DC</span>
+            <div className="flex justify-between items-center py-1.5 border-b border-slate-50 dark:border-white/[0.06]">
+              <span className="text-[10px] text-slate-500 dark:text-[#a0a4ad] font-medium">Capacidad</span>
+              <span className="text-[10px] font-bold text-slate-800 dark:text-[#e8eaed]">{recommendation.totalSystemSizeKw.toFixed(2)} kW DC</span>
             </div>
             <div className="flex justify-between items-center py-1.5">
-              <span className="text-[10px] text-slate-500 font-medium">Producción</span>
-              <span className="text-[10px] font-bold text-green-600">{recommendation.estimatedMonthlyGeneration.toFixed(0)} kWh/mes</span>
+              <span className="text-[10px] text-slate-500 dark:text-[#a0a4ad] font-medium">Producción</span>
+              <span className="text-[10px] font-bold text-green-600 dark:text-green-400">{recommendation.estimatedMonthlyGeneration.toFixed(0)} kWh/mes</span>
             </div>
           </div>
         </div>
 
-        {/* Calculation Logic Box */}
+        {/* Calculation Logic Box — already dark, keep as is */}
         <div className="bg-slate-900 rounded-xl p-4 shadow-sm border border-slate-800 text-slate-300">
           <h4 className="font-black text-white text-[9px] uppercase tracking-widest mb-3 flex items-center">
             <svg className="w-3 h-3 mr-1.5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -96,7 +97,7 @@ export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset 
             </svg>
             Metodología Windmar
           </h4>
-          
+
           <div className="space-y-2">
             <div className="p-2 bg-white/5 rounded-lg border border-white/5">
               <p className="text-[8px] font-black text-yellow-400 uppercase mb-0.5">Fórmula de Cálculo</p>
@@ -104,7 +105,7 @@ export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset 
                 Placas = (Consumo Diario / (4.5 HSP * 0.82 Eficiencia)) / Watts Panel
               </p>
             </div>
-            
+
             <div className="p-2 bg-white/5 rounded-lg border border-white/5">
               <p className="text-[8px] font-black text-yellow-400 uppercase mb-0.5">Horas de Sol Pico (HSP)</p>
               <p className="text-[10px] leading-tight">
@@ -113,11 +114,9 @@ export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset 
             </div>
 
             <div className={`p-2 rounded-lg border ${data.isExistingCustomer ? 'bg-blue-600/20 border-blue-500/30' : 'bg-green-600/20 border-green-500/30'}`}>
-              <p className="text-[8px] font-black uppercase mb-0.5 text-white">
-                Resultado Final
-              </p>
+              <p className="text-[8px] font-black uppercase mb-0.5 text-white">Resultado Final</p>
               <p className="text-[10px] text-white/90 leading-tight">
-                {data.isExistingCustomer 
+                {data.isExistingCustomer
                   ? `Necesitas añadir ${recommendation.additionalPanelsNeeded} placas para cubrir tu déficit.`
                   : `Sistema de ${recommendation.totalPanelCountTarget} placas para independencia total.`}
               </p>
@@ -125,8 +124,8 @@ export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset 
           </div>
         </div>
       </div>
-      
-      {/* Battery Section */}
+
+      {/* Battery Section — already dark gradient */}
       <div className="bg-gradient-to-br from-[#002E6E] to-[#004A99] rounded-xl shadow-sm p-4 text-white relative overflow-hidden">
         <div className="relative z-10">
           <div className="flex justify-between items-start mb-3">
@@ -150,7 +149,6 @@ export const Results: React.FC<ResultsProps> = ({ data, recommendation, onReset 
             </div>
           </div>
 
-          {/* Visual battery units */}
           <div className="flex gap-2 mb-3">
             {Array.from({ length: recommendation.powerwallCount }).map((_, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
