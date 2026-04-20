@@ -17,6 +17,21 @@ type InputMethod = 'SCAN' | 'MANUAL';
 
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    try { return localStorage.getItem('wh-theme') === 'dark'; } catch { return false; }
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (isDarkMode) {
+      root.classList.add('dark');
+      try { localStorage.setItem('wh-theme', 'dark'); } catch {}
+    } else {
+      root.classList.remove('dark');
+      try { localStorage.setItem('wh-theme', 'light'); } catch {}
+    }
+  }, [isDarkMode]);
   const [state, setState] = useState<AppState>(AppState.IDLE);
   const [inputMethod, setInputMethod] = useState<InputMethod>('SCAN');
   const [isExisting, setIsExisting] = useState<boolean>(false);
@@ -138,15 +153,15 @@ const App: React.FC = () => {
   }
 
   return (
-    <Layout>
+    <Layout isDarkMode={isDarkMode} onToggleDark={() => setIsDarkMode(!isDarkMode)}>
       {state === AppState.ANALYZING && <LoadingOverlay />}
-      
+
       <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-4 px-2">
         {/* Sidebar Left: Configuración */}
         <aside className="lg:w-64 flex-shrink-0">
-          <div className="bg-white p-3 rounded-xl shadow-sm border border-slate-100 sticky top-4">
+          <div className="bg-white dark:bg-[#161b22] p-3 rounded-xl shadow-sm border border-slate-100 dark:border-white/[0.08] sticky top-4">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Configuración</h3>
+              <h3 className="text-[10px] font-black text-slate-400 dark:text-[#6b7280] uppercase tracking-widest">Configuración</h3>
               <div className="lg:hidden">
                 <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-1 text-slate-500">
                   {isSidebarOpen ? <X size={18} /> : <Menu size={18} />}
@@ -185,7 +200,7 @@ const App: React.FC = () => {
                     exit={{ opacity: 0, height: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-100 space-y-3 mt-2">
+                    <div className="p-3 bg-slate-50 dark:bg-[#0f1215] rounded-lg border border-slate-100 dark:border-white/[0.08] space-y-3 mt-2">
                       <div className="flex flex-col">
                         <div className="flex justify-between items-center mb-1.5">
                           <label className="text-[8px] font-black text-slate-500 uppercase tracking-widest">Placas Actuales</label>
@@ -253,10 +268,10 @@ const App: React.FC = () => {
           {(state === AppState.IDLE || state === AppState.ANALYZING || state === AppState.ERROR) ? (
             <>
               <div className="text-center mb-2">
-                <h2 className="text-lg sm:text-2xl font-black text-slate-800 tracking-tight leading-none">
-                  Independencia con <span className="text-[#1D429B]">Windmar Home</span>
+                <h2 className="text-lg sm:text-2xl font-black text-slate-800 dark:text-[#e8eaed] tracking-tight leading-none">
+                  Independencia con <span className="text-[#1D429B] dark:text-blue-400">Windmar Home</span>
                 </h2>
-                <p className="text-slate-500 mt-0.5 text-[10px] sm:text-xs max-w-md mx-auto font-medium">
+                <p className="text-slate-500 dark:text-[#a0a4ad] mt-0.5 text-[10px] sm:text-xs max-w-md mx-auto font-medium">
                   Calcula tu ahorro con precisión IA o ingreso manual.
                 </p>
               </div>
@@ -289,7 +304,7 @@ const App: React.FC = () => {
                 </div>
               )}
 
-              <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+              <div className="bg-white dark:bg-[#161b22] rounded-2xl shadow-xl border border-slate-100 dark:border-white/[0.08] overflow-hidden">
                 {inputMethod === 'SCAN' ? (
                   <Scanner 
                     onFileUploaded={handleFileUploaded} 
