@@ -14,7 +14,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, isDarkMode, onToggleDa
     <div className="min-h-screen bg-slate-50 dark:bg-[#0f1215] flex flex-col">
       <header className="bg-[#002E6E] text-white shadow-lg sticky top-0 z-50 border-b-2 border-[#F89B24]">
         <div className="max-w-4xl mx-auto px-4 py-1.5 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Logos Container */}
             <img
               src="https://i.postimg.cc/44pJ0vXw/logo.png"
@@ -28,7 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, isDarkMode, onToggleDa
                 alt="LUMA Energy"
                 className="object-contain h-7 sm:h-9 mr-1.5 brightness-0 invert"
               />
-              <h1 className="text-[27.5px] sm:text-[35.5px] font-black tracking-tighter leading-none">
+              <h1 className="text-[20px] sm:text-[27.5px] md:text-[35.5px] font-black tracking-tighter leading-none">
                 <span className="text-[#F89B24]">SCANNER</span>
               </h1>
             </div>
